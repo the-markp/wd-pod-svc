@@ -1,0 +1,27 @@
+services:
+
+  nginx:
+    build:
+      context: ./bin/nginx
+    container_name: nginx
+    restart: "always"
+    volumes:
+      - ./www:/var/www/html:rw
+    ports:
+      - 80:80
+      - 443:443
+
+  php:
+    build:
+      context: ./bin/php82
+    container_name: php82
+    restart: "always"
+    volumes:
+      - ./www:/var/www/html:rw
+      - ./config/php/php.ini:/usr/local/etc/php/php.ini
+
+  redis:
+    container_name: redis
+    image: redis:latest
+    ports:
+      - "127.0.0.1:6379:6379"
