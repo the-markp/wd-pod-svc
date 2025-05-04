@@ -1,4 +1,4 @@
-FROM php:8.2.27
+FROM php:8.2.1-apache-buster
 
 # Surpresses debconf complaints of trying to install apt packages interactively
 # https://github.com/moby/moby/issues/4032#issuecomment-192327844
@@ -43,6 +43,28 @@ RUN pecl install xdebug-3.2.1 && \
 # Install redis
 RUN pecl install redis-5.3.7 && \
     docker-php-ext-enable redis
+
+# Install imagick
+RUN apt-get update && \
+    apt-get -y --no-install-recommends install --fix-missing libmagickwand-dev && \
+    rm -rf /var/lib/apt/lists/*
+
+# Workarround until imagick is available in pecl with php8 support
+# Imagick Commit to install
+# https://github.com/Imagick/imagick
+ARG IMAGICK_COMMIT="661405abe21d12003207bc8eb0963fafc2c02ee4"
+
+RUN cd /usr/local/src && \
+    git clone https://github.com/Imagick/imagick && \
+    cd imagick && \
+    git checkout ${IMAGICK_COMMIT} && \
+    phpize && \
+    ./configure && \
+    make && \
+    make install && \
+    cd .. && \
+    rm -rf imagick && \
+    docker-php-ext-enable imagick
 
 # Other PHP8 Extensions
 
