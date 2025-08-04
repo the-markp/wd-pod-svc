@@ -7,15 +7,15 @@ services:
       - "443:443"
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-      - ./pm:/var/www/html
+      - ./app/public:/var/www/html    #ACTION: this should be mapped to public directory
     depends_on:
       - php
 
   php:
     build:
-      contect: ./php82
+      context: ./php82
     volumes:
-      - ./pm:/var/www/html
+      - ./app:/var/www/html
 
   mysql:
     image: mysql:8.0
