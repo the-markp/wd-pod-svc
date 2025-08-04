@@ -28,7 +28,7 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: userpassword
     volumes:
-      - mysql_data:/var/lib/mysql
+      - ./mysql:/var/lib/mysql
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
