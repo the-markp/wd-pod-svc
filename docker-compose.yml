@@ -7,7 +7,7 @@ services:
       - "443:443"
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-      - ./app/public:/var/www/html    #ACTION: this should be mapped to public directory
+      - ./app:/var/www/html    #point to app root directory and adjust nginx config for public assets
     depends_on:
       - php
 
