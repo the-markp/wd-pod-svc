@@ -12,3 +12,6 @@
 /.vs/wd-pod-svc/FileContentIndex/3502ba77-3ae8-431a-9d82-f71ad1404b90.vsidx
 *.vsidx
 /.vs/VSWorkspaceState.json
+/.vs/wd-pod-svc
+/.vs/slnx.sqlite
+*.sqlite-journal
